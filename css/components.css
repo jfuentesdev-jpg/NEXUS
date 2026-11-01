@@ -1,0 +1,259 @@
+/* ============================================================
+   NEXUS · components.css
+   Componentes: buscador, botones, tarjetas, etiquetas, filtros, vacíos.
+   ============================================================ */
+
+/* --- Buscador --- */
+.buscador { display: flex; gap: var(--esp-2); }
+.buscador input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--esp-3) var(--esp-4);
+  background: var(--fondo-elevado);
+  border: 1px solid var(--borde-fuerte);
+  border-radius: var(--radio-m);
+  font-size: 1rem; /* evita zoom automático en iOS */
+  color: var(--texto);
+}
+.buscador input::placeholder { color: var(--texto-2); }
+.buscador--hero {
+  max-width: 560px;
+  margin-inline: auto;
+  margin-top: var(--esp-6);
+}
+
+/* --- Botones --- */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-2);
+  padding: var(--esp-3) var(--esp-5);
+  border-radius: var(--radio-m);
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background var(--duracion), border-color var(--duracion), transform var(--duracion);
+}
+.boton--primario { background: var(--acento); color: var(--blanco-fijo); }
+.boton--primario:hover { background: var(--acento-fuerte); }
+.boton--secundario {
+  background: transparent;
+  color: var(--texto);
+  border-color: var(--borde-fuerte);
+}
+.boton--secundario:hover {
+  border-color: var(--acento);
+  color: var(--acento-texto);
+}
+.boton--texto {
+  background: none;
+  border: none;
+  color: var(--acento-texto);
+  cursor: pointer;
+  padding: var(--esp-2) 0;
+  font-weight: 600;
+}
+.boton--texto:hover { text-decoration: underline; }
+.boton:active { transform: translateY(1px); }
+
+/* --- Tarjetas --- */
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
+  padding: var(--esp-5);
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-l);
+  transition: border-color var(--duracion), background var(--duracion);
+}
+.tarjeta:hover {
+  border-color: var(--borde-fuerte);
+  background: var(--superficie-2);
+}
+
+.tarjeta-migas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-1) var(--esp-2);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--texto-2);
+}
+.migas-sep { color: var(--borde-fuerte); }
+
+.tarjeta-titulo { margin: 0; font-size: 1.05rem; }
+.tarjeta-titulo a { color: var(--texto); text-decoration: none; }
+.tarjeta-titulo a:hover { color: var(--acento-texto); }
+
+.tarjeta-descripcion {
+  color: var(--texto-2);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.tarjeta-pie {
+  margin-top: auto;
+  padding-top: var(--esp-3);
+  border-top: 1px solid var(--borde);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-2);
+  font-size: 0.8rem;
+  color: var(--texto-2);
+}
+.tarjeta-meta-grupo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--esp-2);
+}
+.tarjeta-codigo {
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+.tarjeta-metadatos {
+  margin: 0;
+  color: var(--texto-2);
+  font-size: 0.8rem;
+}
+
+/* --- Etiquetas --- */
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem var(--esp-2);
+  border-radius: 999px;
+  border: 1px solid var(--borde-fuerte);
+  color: var(--texto-2);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.etiqueta--intermedia {
+  border-color: var(--acento);
+  color: var(--acento-texto);
+  background: var(--acento-suave);
+}
+
+/* --- Chips de ramas --- */
+.ramas-mini {
+  list-style: none;
+  margin: var(--esp-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+}
+.ramas-mini a {
+  display: inline-block;
+  padding: 0.15rem var(--esp-3);
+  border-radius: 999px;
+  border: 1px solid var(--borde-fuerte);
+  color: var(--texto-2);
+  background: var(--fondo);
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+.ramas-mini a:hover {
+  border-color: var(--acento);
+  color: var(--acento-texto);
+}
+
+/* --- Tarjeta de disciplina --- */
+.tarjeta-disciplina { gap: var(--esp-3); }
+.tarjeta-cabecera {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+}
+.inicial {
+  width: 42px;
+  height: 42px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radio-m);
+  background: var(--acento-suave);
+  border: 1px solid var(--acento);
+  color: var(--acento-texto);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+/* --- Filtros (página Explorar) --- */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--esp-3) var(--esp-4);
+  padding: var(--esp-4);
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-m);
+  margin-bottom: var(--esp-5);
+}
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-1);
+  min-width: 9rem;
+}
+.campo label {
+  font-size: 0.78rem;
+  color: var(--texto-2);
+  font-weight: 600;
+}
+.campo--busqueda {
+  flex: 1 1 240px;
+  min-width: 200px;
+}
+.campo select,
+.campo input {
+  min-height: 40px;
+  padding: var(--esp-2) var(--esp-3);
+  background: var(--fondo-elevado);
+  border: 1px solid var(--borde-fuerte);
+  border-radius: var(--radio-s);
+  color: var(--texto);
+}
+.campo select:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* --- Resultados --- */
+.resultado-meta {
+  color: var(--texto-2);
+  font-size: 0.9rem;
+  margin: 0 0 var(--esp-4);
+}
+
+.sin-resultados {
+  padding: clamp(2rem, 6vw, 3.5rem) var(--esp-4);
+  border: 1px dashed var(--borde-fuerte);
+  border-radius: var(--radio-l);
+  text-align: center;
+  color: var(--texto-2);
+}
+.sin-resultados p {
+  max-width: 52ch;
+  margin-inline: auto;
+}
+
+/* --- Bloques de disciplina (página Disciplinas) --- */
+.disciplina-bloque {
+  padding-block: var(--esp-6);
+  border-top: 1px solid var(--borde);
+  scroll-margin-top: 5rem;
+}
+.disciplina-bloque:first-of-type { border-top: none; padding-top: 0; }
+.disciplina-intro {
+  color: var(--texto-2);
+  max-width: 62ch;
+  margin-bottom: var(--esp-5);
+}

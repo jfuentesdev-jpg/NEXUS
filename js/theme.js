@@ -1,93 +1,58 @@
 /* ============================================================
-   NEXUS — theme.js
-   Selector de tema (oscuro / claro / automático) con preferencia
-   persistente, según la identidad visual del documento maestro.
+   NEXUS · theme.js
+   Temas oscuro/claro con preferencia persistente.
+   Sin preferencia guardada → sigue al sistema (§11, Temas).
    ============================================================ */
 
-const CLAVE = 'nexus:tema';
+const CLAVE = 'nexus-tema';
+const MQ_CLARO = window.matchMedia('(prefers-color-scheme: light)');
 
-/** Aplica el atributo data-tema en <html>. */
-function aplicar(valor) {
-  const raiz = document.documentElement;
-  if (valor === 'oscuro' || valor === 'claro') {
-    raiz.setAttribute('data-tema', valor);
-  } else {
-    raiz.removeAttribute('data-tema'); // automático: lo decide el sistema
+function temaSistema() {
+  return MQ_CLARO.matches ? 'claro' : 'oscuro';
+}
+
+function resolver() {
+  try {
+    const pref = localStorage.getItem(CLAVE);
+    if (pref === 'oscuro' || pref === 'claro') return pref;
+  } catch (error) {
+    /* almacenamiento no disponible: se usa el tema del sistema */
   }
+  return temaSistema();
 }
 
-/** Preferencia guardada, si existe y es válida. */
-export function temaGuardado() {
-  const valor = localStorage.getItem(CLAVE);
-  return valor === 'oscuro' || valor === 'claro' || valor === 'auto' ? valor : null;
+function actualizarBoton(tema) {
+  const boton = document.getElementById('boton-tema');
+  if (!boton) return;
+  const destino = tema === 'claro' ? 'oscuro' : 'claro';
+  boton.title = `Cambiar a tema ${destino}`;
+  boton.setAttribute('aria-label', `Cambiar a tema ${destino}`);
 }
 
-/**
- * Conecta el <select> del tema con la preferencia persistente.
- * @param {HTMLSelectElement|null} selectorTema
- */
-export function iniciarTema(selectorTema) {
-  if (!selectorTema) return;
+export function aplicarTema(tema) {
+  document.documentElement.dataset.theme = tema;
+  actualizarBoton(tema);
+}
 
-  const guardado = temaGuardado();
-  if (guardado) selectorTema.value = guardado;
-  else selectorTema.value = 'auto';
+export function alternarTema() {
+  const actual = document.documentElement.dataset.theme;
+  const nuevo = actual === 'claro' ? 'oscuro' : 'claro';
+  try {
+    localStorage.setItem(CLAVE, nuevo);
+  } catch (error) {
+    /* sin persistencia: el cambio vale para esta visita */
+  }
+  aplicarTema(nuevo);
+}
 
-  // Refleja de inmediato la preferencia elegida en esta sesión.
-  if (selectorTema.value !== 'auto') aplicar(selectorTema.value);
-
-  selectorTema.addEventListener('change', () => {
-    const valor = selectorTema.value;
-    if (valor === 'auto') {
-      localStorage.removeItem(CLAVE);
-      aplicar('auto');
-    } else {
-      localStorage.setItem(CLAVE, valor);
-      aplicar(valor);
+export function iniciarTema() {
+  aplicarTema(resolver());
+  MQ_CLARO.addEventListener('change', () => {
+    try {
+      if (!localStorage.getItem(CLAVE)) aplicarTema(temaSistema());
+    } catch (error) {
+      /* la preferencia manual tiene prioridad */
     }
   });
+  document.getElementById('boton-tema')?.addEventListener('click', alternarTema);
 }
-
-/* Aplicación temprana del tema guardado (evita destello al cargar). */
-if (temaGuardado()) aplicar(temaGuardado());
-
-/**
- * Menú de navegación móvil: botón hamburguesa accesible.
- * @param {HTMLButtonElement|null} botonMenu
- * @param {HTMLElement|null} listaNavegacion
- */
-export function iniciarMenu(botonMenu, listaNavegacion) {
-  if (!botonMenu || !listaNavegacion) return;
-
-  const cerrar = () => {
-    listaNavegacion.setAttribute('data-abierta', 'false');
-    botonMenu.setAttribute('aria-expanded', 'false');
-  };
-
-  botonMenu.addEventListener('click', () => {
-    const abierta = botonMenu.getAttribute('aria-expanded') === 'true';
-    listaNavegacion.setAttribute('data-abierta', String(!abierta));
-    botonMenu.setAttribute('aria-expanded', String(!abierta));
-  });
-
-  document.addEventListener('keydown', (evento) => {
-    if (evento.key === 'Escape' && botonMenu.getAttribute('aria-expanded') === 'true') {
-      cerrar();
-      botonMenu.focus();
-    }
-  });
-
-  document.addEventListener('click', (evento) => {
-    if (
-      botonMenu.getAttribute('aria-expanded') === 'true' &&
-      !listaNavegacion.contains(evento.target) &&
-      !botonMenu.contains(evento.target)
-    ) {
-      cerrar();
-    }
-  });
-}
-
-/* Autoconexión de los controles de encabezado de la página actual. */
-iniciarTema(document.getElementById('selector-tema'));
-iniciarMenu(document.getElementById('boton-menu'), document.getElementById('navegacion-lista'));

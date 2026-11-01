@@ -1,57 +1,26 @@
 /* ============================================================
-   NEXUS — data.js
-   Carga y acceso a los datos estructurados (JSON, sin backend).
-   El index (disciplinas/contenidos) es la única fuente de datos.
+   NEXUS · data.js
+   Acceso al catálogo JSON. Los archivos se resuelven relativos a
+   este módulo, por lo que las páginas de /pages/ pueden reutilizarlo.
    ============================================================ */
 
-const rutaDisciplinas = new URL('../data/disciplinas.json', import.meta.url);
-const rutaContenidos = new URL('../data/contenidos.json', import.meta.url);
+const DIRECTORIO = new URL('../data/', import.meta.url);
 
-/** Caché interna del índice cargado. */
-let indice = null;
+/** Caché de promesas: evita peticiones repetidas de un mismo archivo. */
+const cache = new Map();
 
-/**
- * Lee y valida el JSON de un archivo de datos.
- * @param {string} url — dirección del recurso.
- * @param {string} clave — clave del objeto raíz esperada.
- * @returns {Promise<Array<any>>}
- */
-async function cargarJson(url, clave) {
-  const respuesta = await fetch(url);
-  if (!respuesta.ok) {
-    throw new Error(`HTTP ${respuesta.status} al cargar ${url}`);
+function cargar(archivo) {
+  if (!cache.has(archivo)) {
+    const promesa = fetch(new URL(archivo, DIRECTORIO)).then((respuesta) => {
+      if (!respuesta.ok) {
+        throw new Error(`HTTP ${respuesta.status} al cargar ${archivo}`);
+      }
+      return respuesta.json();
+    });
+    cache.set(archivo, promesa);
   }
-  const datos = await respuesta.json();
-  const lista = datos?.[clave];
-  if (!Array.isArray(lista)) {
-    throw new Error(`Formato inválido en ${url}: se esperaba un arreglo "${clave}".`);
-  }
-  return lista;
+  return cache.get(archivo);
 }
 
-/**
- * Carga el índice completo (disciplinas + contenidos) una sola vez.
- * @returns {Promise<{disciplinas: Array, contenidos: Array, porId: Map}>}
- */
-export async function obtenerIndice() {
-  if (indice) return indice;
-
-  const [disciplinas, contenidos] = await Promise.all([
-    cargarJson(rutaDisciplinas, 'disciplinas'),
-    cargarJson(rutaContenidos, 'contenidos'),
-  ]);
-
-  const porId = new Map(contenidos.map((c) => [c.id, c]));
-  indice = { disciplinas, contenidos, porId };
-  return indice;
-}
-
-/** Mapa id → nombre para disciplinas, ramas y tipos. */
-export const NOMBRES = {
-  tipo: { concepto: 'Concepto', articulo: 'Artículo' },
-  dificultad: { basico: 'Básico', intermedio: 'Intermedio', avanzado: 'Avanzado' },
-  estado: {
-    revision: 'En revisión académica',
-    publicado: 'Publicado',
-  },
-};
+export const getDisciplinas = () => cargar('disciplinas.json');
+export const getCatalogo = () => cargar('catalogo.json');

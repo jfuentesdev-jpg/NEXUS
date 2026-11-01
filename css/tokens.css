@@ -1,0 +1,65 @@
+/* ============================================================
+   NEXUS · tokens.css
+   Sistema de diseño: color, tipografía, espaciado, formas, movimiento.
+   Paleta base del Documento Maestro (§11): #090B12, #176BFF, #FFFFFF, #202A3B.
+   Nota: familia tipográfica definitiva pendiente (§30); pila del sistema
+   como solución provisional.
+   ============================================================ */
+
+:root {
+  color-scheme: dark;
+
+  /* Color — tema oscuro por defecto */
+  --fondo: #090B12;
+  --fondo-elevado: #10151F;
+  --superficie: #202A3B;
+  --superficie-2: #2A3548;
+  --borde: #26334A;
+  --borde-fuerte: #3D4F6E;
+  --texto: #FFFFFF;
+  --texto-2: #AEB9CE;
+  --acento: #176BFF;
+  --acento-fuerte: #3F8CFF;
+  --acento-texto: #7AB0FF;
+  --acento-suave: rgba(23, 107, 255, 0.14);
+  --blanco-fijo: #FFFFFF;
+  --sombra: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+  /* Tipografía (provisional) */
+  --fuente-base: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Espaciado */
+  --esp-1: 0.25rem;
+  --esp-2: 0.5rem;
+  --esp-3: 0.75rem;
+  --esp-4: 1rem;
+  --esp-5: 1.5rem;
+  --esp-6: 2.25rem;
+  --esp-7: 3rem;
+  --esp-8: 4.5rem;
+
+  /* Formas */
+  --radio-s: 6px;
+  --radio-m: 10px;
+  --radio-l: 16px;
+
+  /* Movimiento */
+  --duracion: 0.18s;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --fondo: #FFFFFF;
+  --fondo-elevado: #F4F6FB;
+  --superficie: #F1F4F9;
+  --superficie-2: #E7ECF5;
+  --borde: #D9E0EC;
+  --borde-fuerte: #B9C4D8;
+  --texto: #121722;
+  --texto-2: #43506B;
+  --acento: #176BFF;
+  --acento-fuerte: #0F57D6;
+  --acento-texto: #0F57D6;
+  --acento-suave: rgba(23, 107, 255, 0.10);
+  --sombra: 0 10px 30px rgba(18, 23, 34, 0.08);
+}

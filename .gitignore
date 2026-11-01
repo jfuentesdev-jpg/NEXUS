@@ -1,0 +1,9 @@
+# Sistema
+Thumbs.db
+.DS_Store
+
+# Entorno
+.env*
+
+# Dependencias futuras
+node_modules/

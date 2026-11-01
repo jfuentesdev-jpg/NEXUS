@@ -1,23 +1,57 @@
 {
+  "version": "0.1.0",
+  "actualizado": "2026-11-01",
   "disciplinas": [
     {
-      "id": "matematicas",
+      "codigo": "MAT",
       "nombre": "Matemáticas",
-      "descripcion": "Fundamentos de álgebra, aritmética, geometría y trigonometría.",
+      "slug": "matematicas",
+      "descripcion": "Estudio de estructuras, patrones y relaciones; lenguaje fundamental de las ciencias y la ingeniería.",
       "ramas": [
-        { "id": "algebra", "nombre": "Álgebra" },
-        { "id": "aritmetica", "nombre": "Aritmética" },
-        { "id": "geometria", "nombre": "Geometría" },
-        { "id": "trigonometria", "nombre": "Trigonometría" }
+        {
+          "codigo": "ALG",
+          "nombre": "Álgebra",
+          "slug": "algebra",
+          "descripcion": "Manipulación de expresiones y resolución de ecuaciones mediante símbolos y reglas generales."
+        },
+        {
+          "codigo": "ARI",
+          "nombre": "Aritmética",
+          "slug": "aritmetica",
+          "descripcion": "Operaciones y propiedades de los números: base de todo cálculo matemático."
+        },
+        {
+          "codigo": "GEO",
+          "nombre": "Geometría",
+          "slug": "geometria",
+          "descripcion": "Formas, figuras, medidas y sus propiedades en el plano y en el espacio."
+        },
+        {
+          "codigo": "TRI",
+          "nombre": "Trigonometría",
+          "slug": "trigonometria",
+          "descripcion": "Relaciones entre los ángulos y los lados de los triángulos y sus aplicaciones."
+        }
       ]
     },
     {
-      "id": "ciencias",
+      "codigo": "CIE",
       "nombre": "Ciencias",
-      "descripcion": "Fundamentos de física y química.",
+      "slug": "ciencias",
+      "descripcion": "Comprensión de la naturaleza mediante observación, modelos y verificación experimental.",
       "ramas": [
-        { "id": "fisica", "nombre": "Física" },
-        { "id": "quimica", "nombre": "Química" }
+        {
+          "codigo": "FIS",
+          "nombre": "Física",
+          "slug": "fisica",
+          "descripcion": "Estudio de la materia, la energía, el movimiento y sus leyes fundamentales."
+        },
+        {
+          "codigo": "QUI",
+          "nombre": "Química",
+          "slug": "quimica",
+          "descripcion": "Estudio de la materia, sus propiedades, sus transformaciones y las interacciones entre sustancias."
+        }
       ]
     }
   ]

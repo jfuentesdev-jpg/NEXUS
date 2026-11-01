@@ -1,75 +1,76 @@
 /* ============================================================
-   NEXUS — search.js
-   Motor de búsqueda y filtros básicos (Fase inicial del doc. maestro:
-   títulos, descripciones, conceptos y palabras clave).
+   NEXUS · search.js
+   Búsqueda local sobre el catálogo (etapa inicial §13):
+   títulos, descripciones, conceptos, palabras clave.
+   Ponderación: título > palabras clave/tema > resto de campos.
    ============================================================ */
 
-const PESO = { titulo: 4, etiquetas: 3, rama: 2, descripcion: 1.5, disciplina: 1 };
-
-/** Normaliza texto: minúsculas, sin acentos y sin espacios redundantes. */
-export const normalizar = (texto) =>
-  String(texto ?? '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
+/** Quita mayúsculas y tildes para hacer la búsqueda tolerante. */
+export function normalizar(texto) {
+  return String(texto ?? '')
     .toLowerCase()
-    .trim();
-
-/** Puntaje de un contenido frente a una consulta normalizada (0 = no coincide). */
-function puntuar(contenido, consultaNormalizada) {
-  if (!consultaNormalizada) return 0;
-
-  const campos = [
-    [normalizar(contenido.titulo), PESO.titulo],
-    [normalizar((contenido.etiquetas ?? []).join(' ')), PESO.etiquetas],
-    [normalizar(contenido.rama), PESO.rama],
-    [normalizar(contenido.descripcion), PESO.descripcion],
-    [normalizar(contenido.disciplina), PESO.disciplina],
-  ];
-
-  const tokens = consultaNormalizada.split(/\s+/).filter(Boolean);
-  let puntaje = 0;
-
-  for (const token of tokens) {
-    let acerto = false;
-    for (const [texto, peso] of campos) {
-      if (texto.includes(token)) {
-        // coincidencia exacta de palabra completa pesa más que fragmento
-        const limite = new RegExp(`\\b${token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`);
-        puntaje += limite.test(texto) ? peso : peso * 0.55;
-        acerto = true;
-      }
-    }
-    if (!acerto) return 0; // todos los términos deben coincidir
-  }
-  return puntaje;
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
 }
 
 /**
- * Filtra y ordena contenidos según consulta y filtros.
- * @param {Object} opciones
- * @param {Array} opciones.contenidos
- * @param {string} opciones.q — texto de búsqueda (sin normalizar).
- * @param {string} opciones.disciplina
- * @param {string} opciones.rama
- * @param {string} opciones.dificultad
- * @param {string} opciones.tipo
- * @returns {Array} contenidos coincidentes, de mayor a menor relevancia.
+ * Prepara índices de búsqueda para una lista de contenidos.
+ * @param {Array} contenido Ítems del catálogo.
+ * @returns {Array} Ítems con sus campos de búsqueda normalizados.
  */
-export function buscar({ contenidos, q = '', disciplina = '', rama = '', dificultad = '', tipo = '' }) {
-  const consulta = normalizar(q);
-  const filas = contenidos.filter((c) =>
-    (!disciplina || c.disciplina === disciplina) &&
-    (!rama || c.rama === rama) &&
-    (!dificultad || c.dificultad === dificultad) &&
-    (!tipo || c.tipo === tipo)
-  );
+export function prepararBusquedas(contenido) {
+  return contenido.map((item) => {
+    const terminos = [
+      item.titulo,
+      item.descripcion,
+      item.tema,
+      item.codigo,
+      item.disciplina?.nombre,
+      item.rama?.nombre,
+      ...(item.palabras_clave ?? []),
+    ].join(' ');
 
-  if (!consulta) return filas;
-
-  return filas
-    .map((c) => ({ contenido: c, puntaje: puntuar(c, consulta) }))
-    .filter((x) => x.puntaje > 0)
-    .sort((a, b) => b.puntaje - a.puntaje)
-    .map((x) => x.contenido);
+    return {
+      item,
+      texto: normalizar(terminos),
+      titulo: normalizar(item.titulo),
+      tema: normalizar(item.tema),
+      palabras: normalizar((item.palabras_clave ?? []).join(' ')),
+    };
+  });
 }
 
+/**
+ * Busca en el índice preparado. Todos los términos de la consulta
+ * deben estar presentes (Y lógico).
+ * @param {Array} preparados Salida de prepararBusquedas().
+ * @param {string} consulta Texto libre del usuario.
+ * @returns {Array} Contenidos ordenados por relevancia (desc).
+ */
+export function buscar(preparados, consulta) {
+  const tokens = normalizar(consulta).split(/\s+/).filter(Boolean);
+  if (tokens.length === 0) return [];
+
+  const resultados = [];
+
+  for (const campos of preparados) {
+    let puntos = 0;
+
+    for (const token of tokens) {
+      if (!campos.texto.includes(token)) {
+        puntos = 0;
+        break;
+      }
+      puntos += 1;
+      if (campos.titulo.includes(token)) puntos += 5;
+      if (campos.tema.includes(token)) puntos += 2;
+      if (campos.palabras.includes(token)) puntos += 2;
+    }
+
+    if (puntos > 0) resultados.push({ item: campos.item, puntos });
+  }
+
+  // sort() es estable: empates conservan el orden del catálogo.
+  resultados.sort((a, b) => b.puntos - a.puntos);
+  return resultados.map((r) => r.item);
+}

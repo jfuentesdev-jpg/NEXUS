@@ -1,0 +1,80 @@
+/* ============================================================
+   NEXUS · base.css
+   Reset y estilos base: tipografía, enlaces, foco, salto de contenido.
+   ============================================================ */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente-base);
+  font-size: 1rem;
+  line-height: 1.65;
+  background: var(--fondo);
+  color: var(--texto);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+main { flex: 1; }
+
+h1, h2, h3 {
+  line-height: 1.2;
+  margin: 0 0 var(--esp-3);
+  font-weight: 600;
+}
+h1 { font-size: clamp(2rem, 5.5vw, 3rem); letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); letter-spacing: -0.01em; }
+h3 { font-size: 1.08rem; margin-bottom: var(--esp-2); }
+
+p { margin: 0 0 var(--esp-4); }
+p:last-child { margin-bottom: 0; }
+
+a {
+  color: var(--acento-texto);
+  text-underline-offset: 3px;
+}
+a:hover { color: var(--acento-fuerte); }
+
+button, input, select { font: inherit; color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Enlace de salto al contenido (accesibilidad por teclado) */
+.salto {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1000;
+  background: var(--acento);
+  color: var(--blanco-fijo);
+  padding: var(--esp-3) var(--esp-4);
+  border-radius: 0 0 var(--radio-s) var(--radio-s);
+  text-decoration: none;
+  font-weight: 600;
+}
+.salto:focus { left: 0; }
+
+/* Movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
