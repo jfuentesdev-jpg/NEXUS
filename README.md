@@ -1,36 +1,77 @@
-# NEXUS — Ecosistema de Conocimiento (v0.1.0)
+# NEXUS — Ecosistema de Conocimiento
 
-**Conecta el conocimiento.** Primera base funcional conforme al
-[Documento Maestro v1.0](docs/Nexus-Documento-Maestro-v1.0.md) (Fases 1–2: fundación e interfaz principal).
+**Conecta el conocimiento.** Plataforma estática para consultar, explorar y estudiar
+conceptos de matemáticas y ciencias, organizados por disciplina, rama y tema.
+Definida en el [Documento Maestro v1.0](docs/Nexus-Documento-Maestro-v1.0.md).
 
-Historial de versiones: [CHANGELOG.md](CHANGELOG.md).
+Registro de cambios: [CHANGELOG.md](CHANGELOG.md) — única fuente del historial de versiones.
 
-## Ejecutar
+## Propósito y objetivos
 
-El catálogo se carga con `fetch`, así que el proyecto debe servirse estático:
+- Centralizar el conocimiento académico en un catálogo navegable y compartible.
+- Ofrecer búsqueda tolerante a tildes y filtros combinados (disciplina, rama, dificultad).
+- Mantener una interfaz rápida, accesible (enfoque WCAG 2.2 AA) y sin dependencias
+  externas: sin frameworks, sin backend y con servidores estáticos de cualquier tipo.
+- Conservar siempre la identidad visual propia (tema oscuro permanente, Dark Technology).
+
+## Disciplinas y organización del conocimiento
+
+La organización jerárquica del catálogo es **Disciplina → Rama → Tema**. Cada contenido
+declara además su dificultad (básica, intermedia) y sus conocimientos previos.
+
+- **Matemáticas**: Álgebra, Aritmética, Geometría y Trigonometría.
+- **Ciencias**: Física y Química.
+
+El catálogo vive en `data/catalogo.json` y crece con cada fase editorial; buscador y
+filtros lo cubren sin cambios de código.
+
+## Características
+
+- **Inicio**: buscador central, tarjetas de disciplinas y contenidos destacados.
+- **Disciplinas**: jerarquía completa con conteos por rama.
+- **Explorar (biblioteca)**: búsqueda por título, descripción, tema y palabras clave,
+  combinable con filtros, con la consulta y los filtros sincronizados en la URL.
+- **Navegación responsive**: menú horizontal en escritorio; en móvil, menú desplegable
+  operable por teclado con cierre con Escape y clic fuera.
+- **Interacciones**: hover, foco y estados deshabilitados refinados; entrada animada
+  del hero y de destacados respetando `prefers-reduced-motion`; estado vacío con
+  botón de restablecimiento.
+- **Espacios de imagen preparados**: hero, disciplina/ramas y miniaturas de destacados
+  pintan un degradado elegante mientras no existan archivos; al definirlos aparecen sin
+  tocar HTML ni JavaScript.
+- **Sistema visual Dark Technology**: tema oscuro permanente con la paleta de identidad,
+  sistema de diseño por tokens y diseño responsive mobile-first.
+
+## Tecnologías
+
+- HTML5 semántico.
+- CSS3 por capas: tokens (sistema de diseño), base, layout y componentes.
+- JavaScript ES6+ nativo en módulos, sin frameworks ni dependencias de terceros.
+- Datos en JSON cargados con `fetch`.
+- Servible con cualquier servidor de archivos estáticos.
+
+## Instalación y ejecución
+
+Requisitos: un navegador moderno (Chrome, Edge, Firefox o Safari). Para servir el
+proyecto, cualquier servidor estático; del sistema local basta uno de:
 
 ```bash
 python -m http.server 8123      # opción A (Python)
 npx http-server -p 8123 .       # opción B (Node)
 ```
 
-Abrir `http://localhost:8123` en Chrome, Edge, Firefox o Safari.
+Abrir `http://localhost:8123`.
 
 > El catálogo no se puede abrir doble-clicando el archivo (`file://`): los módulos ES se bloquean.
 > Tras actualizar código, fuerza recarga (Ctrl+F5); las referencias estáticas llevan `?v=` que se
-> incrementa con cada versión para invalidar la caché del navegador.
+> incrementa con cada edición publicada para invalidar la caché del navegador.
 
-## Alcance de esta versión
+## Uso
 
-- Página de inicio: buscador central, disciplinas, contenidos destacados.
-- Página de disciplinas: jerarquía Disciplina → Rama con conteos.
-- Página de biblioteca (Explorar): búsqueda local + filtros (disciplina, rama, dificultad) sincronizados con la URL.
-- Sistema visual Dark Technology (§11) en tema oscuro permanente: header, cards, badges.
-- Interacciones de identidad: hover/focus/disabled refinados, entrada del hero y de destacados (respeta `prefers-reduced-motion`), botón de restablecer en el estado vacío.
-- Espacios de imagen preparados con degradado de identidad (hero, disciplinas y ramas, miniaturas de destacados) para incorporar archivos sin tocar HTML.
-- Diseño responsive mobile-first y semántica accesible (enfoque WCAG 2.2 AA).
-
-Fuera de alcance por ahora (Fase 3+): fichas de contenido, Markdown, rutas, relaciones visuales.
+- Busca desde el hero de inicio o desde la biblioteca; ejemplos: `ecuaciones`,
+  `Pitágoras`, `velocidad`.
+- Combina palabra de búsqueda con los filtros de disciplina, rama y dificultad.
+- La URL conserva consulta y filtros: comparte el enlace de un resultado para reproducirlo.
 
 ## Estructura
 

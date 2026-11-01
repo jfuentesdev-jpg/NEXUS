@@ -10,7 +10,9 @@ proyecto sigue en desarrollo activo).
 ## [0.1.0] — 2026-11-01
 
 Primera versión funcional de la interfaz (Fases 1–2 del Documento Maestro v1.0).
-Estado: construcción en curso, sin publicación pública.
+Estado: construcción en curso. Código publicado en el repositorio público
+[jfuentesdev-jpg/NEXUS](https://github.com/jfuentesdev-jpg/NEXUS) (2026-11-01),
+sin etiqueta de versión ni GitHub Release.
 
 ### Added
 - Página de inicio con buscador central, sección de disciplinas y contenidos destacados.
