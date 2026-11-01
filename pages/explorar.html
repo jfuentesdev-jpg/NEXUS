@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explorar — NEXUS</title>
+  <meta name="description" content="Busca y filtra los contenidos de NEXUS por disciplina, rama, dificultad y tipo.">
+  <meta name="theme-color" content="#090B12">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+
+  <script>
+    /* Aplica la preferencia de tema persistente antes de pintar. */
+    try {
+      var t = localStorage.getItem('nexus:tema');
+      if (t === 'oscuro' || t === 'claro') {
+        document.documentElement.setAttribute('data-tema', t);
+      }
+    } catch (e) {}
+  </script>
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/explorar.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="cabecera">
+    <div class="cabecera-interna">
+      <a class="marca" href="../index.html" aria-label="NEXUS, ir al inicio">
+        <img src="../assets/logo.svg" alt="" width="30" height="30" aria-hidden="true">
+        <span>NEXUS</span>
+        <span class="eslogan-mini">Conecta el conocimiento</span>
+      </a>
+
+      <nav class="navegacion" aria-label="Navegación principal">
+        <button id="boton-menu" class="boton-menu" type="button" aria-expanded="false" aria-controls="navegacion-lista">
+          Menú
+          <svg class="icono-menu" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+        </button>
+        <ul id="navegacion-lista" class="navegacion-lista" data-abierta="false">
+          <li><a href="../index.html">Inicio</a></li>
+          <li><a href="../index.html#disciplinas">Disciplinas</a></li>
+          <li><a href="explorar.html" aria-current="page">Explorar</a></li>
+          <li><span aria-disabled="true">Aprendizaje</span></li>
+          <li><span aria-disabled="true">Investigación</span></li>
+          <li><span aria-disabled="true">Recursos</span></li>
+          <li><span aria-disabled="true">Comunidad</span></li>
+        </ul>
+      </nav>
+
+      <div class="selector-tema">
+        <label class="etiqueta-tema" for="selector-tema">Tema visual</label>
+        <select id="selector-tema" aria-label="Tema visual">
+          <option value="auto">Automático</option>
+          <option value="oscuro">Oscuro</option>
+          <option value="claro">Claro</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <div class="contenedor">
+      <section class="explorar-cab" aria-labelledby="titulo-explorar">
+        <h1 id="titulo-explorar">Explorar</h1>
+        <p>Busca en el núcleo de contenidos y filtra por disciplina, rama, dificultad y tipo.</p>
+
+        <form id="formulario-filtros" role="search" aria-label="Búsqueda con filtros">
+          <div class="buscador-form">
+            <input id="campo-busqueda" type="search" name="q" placeholder="Buscar conceptos, artículos o palabras clave…" autocomplete="off" aria-label="Texto de búsqueda">
+            <button class="boton" type="submit">Buscar</button>
+          </div>
+
+          <div class="filtros">
+            <div>
+              <label for="filtro-disciplina">Disciplina</label>
+              <select id="filtro-disciplina"></select>
+            </div>
+            <div>
+              <label for="filtro-rama">Rama</label>
+              <select id="filtro-rama"></select>
+            </div>
+            <div>
+              <label for="filtro-dificultad">Dificultad</label>
+              <select id="filtro-dificultad"></select>
+            </div>
+            <div>
+              <label for="filtro-tipo">Tipo</label>
+              <select id="filtro-tipo"></select>
+            </div>
+          </div>
+        </form>
+
+        <p id="recuento" class="recuento" role="status"></p>
+        <div id="resultados" class="lista-resultados" aria-live="polite">
+          <p class="estado-vacio">Cargando el índice de contenidos…</p>
+        </div>
+
+        <p class="nota-fase">
+          Las fichas completas y enlaces internos llegarán con la Biblioteca (Fase 3).
+          Ahora se muestra la ficha técnica resumida de cada contenido.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="pie">
+    <div class="pie-interna">
+      <p class="eslogan-pie">NEXUS — Conecta el conocimiento</p>
+      <p>v0.1 · Construcción del MVP · HTML5 + CSS3 + JavaScript nativo</p>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/theme.js"></script>
+  <script type="module" src="../js/explorar.js"></script>
+</body>
+</html>

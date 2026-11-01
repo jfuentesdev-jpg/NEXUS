@@ -1,0 +1,24 @@
+{
+  "disciplinas": [
+    {
+      "id": "matematicas",
+      "nombre": "Matemáticas",
+      "descripcion": "Fundamentos de álgebra, aritmética, geometría y trigonometría.",
+      "ramas": [
+        { "id": "algebra", "nombre": "Álgebra" },
+        { "id": "aritmetica", "nombre": "Aritmética" },
+        { "id": "geometria", "nombre": "Geometría" },
+        { "id": "trigonometria", "nombre": "Trigonometría" }
+      ]
+    },
+    {
+      "id": "ciencias",
+      "nombre": "Ciencias",
+      "descripcion": "Fundamentos de física y química.",
+      "ramas": [
+        { "id": "fisica", "nombre": "Física" },
+        { "id": "quimica", "nombre": "Química" }
+      ]
+    }
+  ]
+}

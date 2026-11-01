@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEXUS — Ecosistema de Conocimiento</title>
+  <meta name="description" content="NEXUS: consulta, explora y relaciona conceptos de matemáticas y ciencias. Conecta el conocimiento.">
+  <meta name="theme-color" content="#090B12">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <script>
+    /* Aplica la preferencia de tema persistente antes de pintar. */
+    try {
+      var t = localStorage.getItem('nexus:tema');
+      if (t === 'oscuro' || t === 'claro') {
+        document.documentElement.setAttribute('data-tema', t);
+      }
+    } catch (e) {}
+  </script>
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="cabecera">
+    <div class="cabecera-interna">
+      <a class="marca" href="index.html" aria-label="NEXUS, ir al inicio">
+        <img src="assets/logo.svg" alt="" width="30" height="30" aria-hidden="true">
+        <span>NEXUS</span>
+        <span class="eslogan-mini">Conecta el conocimiento</span>
+      </a>
+
+      <nav class="navegacion" aria-label="Navegación principal">
+        <button id="boton-menu" class="boton-menu" type="button" aria-expanded="false" aria-controls="navegacion-lista">
+          Menú
+          <svg class="icono-menu" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+        </button>
+        <ul id="navegacion-lista" class="navegacion-lista" data-abierta="false">
+          <li><a href="index.html" aria-current="page">Inicio</a></li>
+          <li><a href="pages/explorar.html">Explorar</a></li>
+          <li><a href="index.html#disciplinas">Disciplinas</a></li>
+          <li><span aria-disabled="true">Aprendizaje</span></li>
+          <li><span aria-disabled="true">Investigación</span></li>
+          <li><span aria-disabled="true">Recursos</span></li>
+          <li><span aria-disabled="true">Comunidad</span></li>
+        </ul>
+      </nav>
+
+      <div class="selector-tema">
+        <label class="etiqueta-tema" for="selector-tema">Tema visual</label>
+        <select id="selector-tema" aria-label="Tema visual">
+          <option value="auto">Automático</option>
+          <option value="oscuro">Oscuro</option>
+          <option value="claro">Claro</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <!-- Buscador central -->
+    <section class="hero" aria-labelledby="titulo-hero">
+      <div class="hero-inner">
+        <p class="eslogan">Conecta el conocimiento</p>
+        <h1 id="titulo-hero">NEXUS — Ecosistema de Conocimiento</h1>
+        <p class="intro">
+          Consulta, explora y relaciona conceptos de matemáticas y ciencias
+          en una plataforma organizada. Primera versión en construcción.
+        </p>
+
+        <form id="formulario-buscador" class="buscador-form" role="search" aria-label="Buscador central">
+          <div class="buscador">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <circle cx="11" cy="11" r="7"/>
+              <path d="m20 20-3.5-3.5"/>
+            </svg>
+            <input id="buscador-inicio" type="search" name="q" placeholder="Busca conceptos, temas o palabras clave…" autocomplete="off" aria-label="Texto de búsqueda">
+            <button class="boton" type="submit">Buscar</button>
+          </div>
+
+          <p class="pistas">
+            Ej.:
+            <button type="button" data-pista="teorema de pitagoras">teorema de Pitágoras</button>
+            <button type="button" data-pista="leyes de newton">leyes de Newton</button>
+            <button type="button" data-pista="tabla periodica">tabla periódica</button>
+          </p>
+
+          <div id="resultados-inicio" class="resultados-hero" role="status" hidden></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Disciplinas -->
+    <section class="seccion" id="disciplinas" aria-labelledby="titulo-disciplinas">
+      <div class="cabecera-seccion">
+        <h2 id="titulo-disciplinas">Disciplinas</h2>
+        <a class="enlace-seccion" href="pages/explorar.html">Explorar todos los contenidos →</a>
+      </div>
+
+      <div class="grid-disciplinas">
+        <a class="tarjeta tarjeta-disciplina" href="pages/explorar.html?disciplina=matematicas">
+          <span class="icono-disciplina" aria-hidden="true">M</span>
+          <h3>Matemáticas</h3>
+          <p class="metadato" style="margin:0">
+            Álgebra · Aritmética · Geometría · Trigonometría
+          </p>
+        </a>
+
+        <a class="tarjeta tarjeta-disciplina" href="pages/explorar.html?disciplina=ciencias">
+          <span class="icono-disciplina" aria-hidden="true">C</span>
+          <h3>Ciencias</h3>
+          <p class="metadato" style="margin:0">
+            Física · Química
+          </p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contenidos destacados -->
+    <section class="seccion" aria-labelledby="titulo-destacados">
+      <div class="cabecera-seccion">
+        <h2 id="titulo-destacados">Contenidos destacados</h2>
+      </div>
+      <div id="destacados" class="grid-destacados">
+        <p class="estado-vacio">Cargando contenidos…</p>
+        <noscript>
+          <p class="estado-vacio">Los contenidos destacados requieren JavaScript.<br>
+          También puedes <a href="pages/explorar.html">explorar el índice</a> con JavaScript activado.</p>
+        </noscript>
+      </div>
+    </section>
+
+    <!-- Estado del proyecto -->
+    <section class="seccion" aria-labelledby="titulo-estado">
+      <div class="cabecera-seccion">
+        <h2 id="titulo-estado">Estado del proyecto</h2>
+      </div>
+      <div class="tarjeta novedades">
+        <p><strong>NEXUS v0.1</strong> está en construcción (Fase 2 del plan maestro).</p>
+        <ul>
+          <li><strong>Disponible:</strong> inicio, navegación, disciplinas, búsqueda y filtros sobre el núcleo de contenidos.</li>
+          <li><strong>En camino:</strong> biblioteca completa (fichas y artículos), rutas de aprendizaje y recursos.</li>
+          <li><strong>Nota editorial:</strong> los contenidos actuales son semillas en revisión académica; las fichas completas llegan con la Biblioteca.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="pie-interna">
+      <p class="eslogan-pie">NEXUS — Conecta el conocimiento</p>
+      <p>v0.1 · Construcción del MVP · HTML5 + CSS3 + JavaScript nativo</p>
+    </div>
+  </footer>
+
+  <script type="module" src="js/theme.js"></script>
+  <script type="module" src="js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="Símbolo NEXUS">
+  <defs>
+    <linearGradient id="nexus-grad" x1="8" y1="6" x2="40" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6FA5FF"/>
+      <stop offset="1" stop-color="#176BFF"/>
+    </linearGradient>
+  </defs>
+  <path d="M24 5.5 41 15.25v17.5L24 42.5 7 32.75v-17.5Z" stroke="url(#nexus-grad)" stroke-width="2.4" stroke-linejoin="round"/>
+  <g stroke="#4E8CFF" stroke-width="1.4" opacity="0.55">
+    <path d="M24 24V5.5M24 24l17-8.75M24 24l17 8.75M24 24v18.5M24 24L7 32.75M24 24L7 15.25"/>
+  </g>
+  <circle cx="24" cy="24" r="3.6" fill="url(#nexus-grad)"/>
+  <circle cx="24" cy="5.5" r="2.6" fill="url(#nexus-grad)"/>
+  <circle cx="41" cy="15.25" r="2.6" fill="url(#nexus-grad)"/>
+  <circle cx="41" cy="32.75" r="2.6" fill="url(#nexus-grad)"/>
+  <circle cx="24" cy="42.5" r="2.6" fill="url(#nexus-grad)"/>
+  <circle cx="7" cy="32.75" r="2.6" fill="url(#nexus-grad)"/>
+  <circle cx="7" cy="15.25" r="2.6" fill="url(#nexus-grad)"/>
+</svg>
