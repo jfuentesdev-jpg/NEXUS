@@ -7,3 +7,7 @@ Thumbs.db
 
 # Dependencias futuras
 node_modules/
+
+# Borrador interrumpido de una iteración anterior: solo copia local
+# para revisión del propietario, no se publica.
+_descartes/
