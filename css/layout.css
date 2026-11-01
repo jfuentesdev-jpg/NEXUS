@@ -163,10 +163,12 @@
 
 /* ============================================================
    Adaptación responsive (v0.1.0)
-   Referencias de ancho: 360 · 390 · 768 · 1024 · 1366 · 1920 px.
-   Escritorio no cambia: el menú hamburguesa solo existe en móvil
-   (≤ 620 px) y únicamente con JavaScript disponible (mejora
-   progresiva; sin JS, la navegación sigue visible y fluida).
+   Referencias: 320 / 360 / 390 / 430 / 768 / 1024 / 1366 / 1920 px.
+   Escritorio (≥ 769 px) conserva el diseño horizontal original:
+   logotipo a la izquierda, navegación y selector de tema.
+   Móvil (≤ 768 px): fila única (logotipo + hamburguesa); navegación
+   y selector de tema en menú desplegable, solo con JavaScript
+   disponible (mejora progresiva; sin JS todo queda visible y fluido).
    ============================================================ */
 
 /* --- Botón de menú (oculto en escritorio y sin JS) --- */
@@ -189,22 +191,17 @@
   border-color: var(--borde-fuerte);
 }
 
-/* --- Tableta (621–1024 px): misma estructura, menos aire --- */
-@media (min-width: 621px) and (max-width: 1024px) {
-  .cabecera-inner { gap: var(--esp-3); }
-  .navegacion a { padding: var(--esp-2) var(--esp-2); }
-  .hero { padding-block: clamp(3rem, 7vw, 4.5rem); }
-}
-
-/* --- Móvil (≤ 620 px) --- */
-@media (max-width: 620px) {
+/* --- Móvil / tableta (≤ 768 px): fila única + menú desplegable --- */
+@media (max-width: 768px) {
+  /* Fila principal: logotipo a la izquierda, hamburguesa a la derecha. */
   .cabecera-inner { min-height: 56px; gap: var(--esp-2); }
   .marca { font-size: 1rem; }
   .logo-marca { width: 26px; height: 26px; }
-  .boton-tema { margin-left: auto; }
 
-  /* Navegación hamburguesa: el panel ancla al header sticky */
-  .nav-con-js .boton-menu { display: inline-flex; }
+  .nav-con-js .boton-menu { display: inline-flex; margin-left: auto; }
+
+  /* La navegación sale de la barra y vive en el panel desplegable;
+     el selector de tema se reubica dentro por JS en este ancho. */
   .nav-con-js .navegacion { display: none; }
   .nav-con-js .navegacion--abierta {
     display: block;
@@ -219,6 +216,7 @@
   }
   .nav-con-js .navegacion ul { flex-direction: column; gap: var(--esp-1); }
   .nav-con-js .navegacion a {
+    display: block;
     padding: var(--esp-3);
     min-height: 44px;
   }
@@ -227,11 +225,48 @@
     background: var(--superficie);
   }
 
-  /* Contenido y formularios */
+  /* Selector de tema como fila final del menú. */
+  .nav-con-js .navegacion .boton-tema {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--esp-2);
+    width: 100%;
+    height: auto;
+    margin: var(--esp-2) 0 0;
+    padding: var(--esp-3);
+    border: none;
+    border-top: 1px solid var(--borde);
+    background: transparent;
+    color: var(--texto-2);
+    min-height: 44px;
+    font-weight: 500;
+    border-radius: 0 0 var(--radio-s) var(--radio-s);
+  }
+  .nav-con-js .navegacion .boton-tema::after { content: 'Cambiar tema'; }
+  .nav-con-js .navegacion .boton-tema:hover {
+    color: var(--texto);
+    background: var(--superficie);
+  }
+
+  /* Despliegue discreto (base.css anula animaciones con reduce motion). */
+  .nav-con-js .navegacion--abierta {
+    animation: despliegue-menu 0.14s ease-out;
+  }
+
+  /* Contenido y formularios: espaciado y filtros cómodos al tacto. */
   .tarjeta { padding: var(--esp-4); }
   .inicial { width: 36px; height: 36px; font-size: 0.95rem; }
   .filtros { align-items: stretch; }
   .campo { min-width: 0; width: 100%; }
   .campo--busqueda { flex: 1 1 100%; }
   .filtros .boton { width: 100%; }
+}
+
+/* Transición del panel, solo si se permiten animaciones. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes despliegue-menu {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: none; }
+  }
 }

@@ -23,7 +23,7 @@ Estado: construcción en curso, sin publicación pública.
 - Identidad visual Dark Technology del documento maestro (paleta `#090B12`, `#176BFF`, `#FFFFFF`, `#202A3B`) y favicon simplificado.
 
 ### Changed
-- Header responsive: menú horizontal en escritorio y tableta; menú hamburguesa en pantallas de hasta 620 px, accesible por teclado (Escape, foco), con atributos ARIA (`aria-expanded`, `aria-controls`, `aria-label`) y cierre automático al seleccionar una opción o hacer clic fuera. Sin JavaScript, la navegación horizontal fluida sigue disponible.
+- Header responsive: menú horizontal en escritorio (≥ 769 px); en pantallas de hasta 768 px, fila única con logotipo y botón hamburguesa, con menú desplegable que reúne las secciones y el selector de tema. Accesible por teclado (Escape con retorno de foco; foco al primer enlace al abrir por teclado), con atributos ARIA (`aria-expanded`, `aria-controls`, `aria-label` dinámico), despliegue discreto respetando `prefers-reduced-motion`, y cierre automático al seleccionar una opción o hacer clic fuera. Sin JavaScript, la navegación horizontal fluida sigue disponible.
 - Ajustes de espaciado y anchos de filtros para ventanas de referencia de 360 a 1920 px, conservando la identidad visual de escritorio.
 
 ## Convenciones para próximos lanzamientos
