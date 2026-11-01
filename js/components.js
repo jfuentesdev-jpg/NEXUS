@@ -1,6 +1,7 @@
 /* ============================================================
    NEXUS · components.js
-   Fábricas de componentes DOM reutilizables (cards, etiquetas, migas).
+   Fábricas de componentes DOM reutilizables (cards, etiquetas,
+   migas, espacios de imagen).
    Se construye siempre con textContent: sin inyección de HTML.
    ============================================================ */
 
@@ -24,6 +25,50 @@ function el(etiqueta, clase, texto) {
   return nodo;
 }
 
+/* mapa slug (data/*.json) → variable CSS del espacio de imagen
+   definida en css/tokens.css (vale `none` hasta que el propietario
+   coloque el archivo). */
+const VARIABLES_IMAGEN = new Map([
+  ['matematicas', '--mathematics-image'],
+  ['ciencias', '--sciences-image'],
+  ['algebra', '--algebra-image'],
+  ['aritmetica', '--arithmetic-image'],
+  ['geometria', '--geometry-image'],
+  ['trigonometria', '--trigonometry-image'],
+  ['fisica', '--physics-image'],
+  ['quimica', '--chemistry-image'],
+]);
+
+/**
+ * Espacio decorativo de imagen para tarjetas.
+ * Enlaza la tarjeta con la variable de su slug (disciplina o rama);
+ * sin archivo, pinta el gradiente de identidad (--gradiente-marco).
+ * Cuando el propietario defina la variable en tokens.css, la imagen
+ * aparece sin tocar HTML ni JS.
+ */
+export function crearArte(slug, modificador = '') {
+  const arte = el('div', `tarjeta-arte${modificador ? ` ${modificador}` : ''}`);
+  const variable = VARIABLES_IMAGEN.get(slug);
+  if (variable) arte.style.setProperty('--imagen-slot', `var(${variable})`);
+  arte.setAttribute('aria-hidden', 'true');
+  return arte;
+}
+
+/**
+ * Miniatura opcional de un contenido destacado (solo se pinta si el
+ * propietario declaró el campo "imagen" en data/catalogo.json; el
+ * archivo vive en assets/images/contenidos/).
+ */
+function crearMiniatura(item) {
+  const miniatura = el('div', 'tarjeta-miniatura');
+  miniatura.setAttribute('aria-hidden', 'true');
+  if (item.imagen) {
+    const ruta = new URL(`../assets/images/contenidos/${item.imagen}`, import.meta.url);
+    miniatura.style.setProperty('--imagen-tarjeta', `url("${ruta.href}")`);
+  }
+  return miniatura;
+}
+
 export function crearEtiqueta(titulo, variante = '') {
   return el('span', `etiqueta${variante ? ` etiqueta--${variante}` : ''}`, titulo);
 }
@@ -43,10 +88,23 @@ function capitalizar(texto) {
 
 /**
  * Tarjeta de contenido (biblioteca).
+ * - `animar` solo en destacados del inicio: entrada escalonada
+ *   (hasta 240 ms) y hueco visible de miniatura preparado.
+ * - Fuera del inicio, la miniatura aparece únicamente si el ítem
+ *   declaró una imagen (los resultados de Explorar re-renderizan con
+ *   cada tecla; nunca se les aplica la animación).
  * La ficha de detalle se añadirá en la Fase 3 del Documento Maestro.
  */
-export function crearTarjetaContenido(item) {
+export function crearTarjetaContenido(item, indice = 0, animar = false) {
   const tarjeta = el('article', 'tarjeta');
+
+  if (animar) {
+    tarjeta.classList.add('tarjeta--anima');
+    tarjeta.style.setProperty('--demora-entrada', `${Math.min(indice * 40, 240)}ms`);
+  }
+
+  const declarada = Boolean(item.imagen);
+  if (declarada || animar) tarjeta.append(crearMiniatura(item));
 
   tarjeta.append(crearMigas([item.disciplina?.nombre, item.rama?.nombre, item.tema]));
   tarjeta.append(el('h3', 'tarjeta-titulo', item.titulo));
@@ -66,11 +124,14 @@ export function crearTarjetaContenido(item) {
 }
 
 /**
- * Tarjeta de disciplina para la página de inicio.
+ * Tarjeta de disciplina para la página de inicio, con su espacio de
+ * imagen (96 px) sangrando sobre el borde superior.
  * El enlace protagonista lleva a Explorar filtrado por disciplina.
  */
 export function crearTarjetaDisciplina(disciplina, totalContenidos) {
   const tarjeta = el('article', 'tarjeta tarjeta-disciplina');
+
+  tarjeta.append(crearArte(disciplina.slug));
 
   const cabecera = el('div', 'tarjeta-cabecera');
   cabecera.append(el('span', 'inicial', disciplina.nombre.charAt(0)));

@@ -111,15 +111,20 @@ function escucharEventos(ui, contenido, indice) {
     demora = setTimeout(() => refrescar(ui, contenido, indice), 250);
   });
 
-  document.getElementById('limpiar-filtros')?.addEventListener('click', () => {
-    ui.busqueda.value = '';
-    ui.disciplina.value = '';
-    ui.rama.value = '';
-    ui.rama.disabled = true;
-    ui.dificultad.value = '';
-    refrescar(ui, contenido, indice);
-    ui.busqueda.focus();
-  });
+  /* Un mismo restablecimiento para «Limpiar» y el botón del estado vacío. */
+  const restablecer = () => restablecerFiltros(ui, contenido, indice);
+  document.getElementById('limpiar-filtros')?.addEventListener('click', restablecer);
+  document.getElementById('restablecer-estado')?.addEventListener('click', restablecer);
+}
+
+function restablecerFiltros(ui, contenido, indice) {
+  ui.busqueda.value = '';
+  ui.disciplina.value = '';
+  ui.rama.value = '';
+  ui.rama.disabled = true;
+  ui.dificultad.value = '';
+  refrescar(ui, contenido, indice);
+  ui.busqueda.focus();
 }
 
 /* --- Aplicación de filtros y búsqueda --- */
@@ -149,7 +154,8 @@ function refrescar(ui, contenido, indice) {
 }
 
 function renderResultados(ui, lista, consulta) {
-  ui.salida.replaceChildren(...lista.map(crearTarjetaContenido));
+  /* Sin animar: Explorar re-renderiza en cada tecla del buscador. */
+  ui.salida.replaceChildren(...lista.map((item) => crearTarjetaContenido(item)));
   ui.vacio.hidden = lista.length > 0;
 
   const sufijo = consulta ? ` para “${consulta}”` : '';

@@ -45,4 +45,43 @@
 
   /* Movimiento */
   --duracion: 0.18s;
+
+  /* ==========================================================
+     ESPACIOS PARA IMÁGENES (propietario)
+     Todas valen `none` hasta que el propietario coloque el archivo
+     y asigne la variable. Mientras falten, los componentes que las
+     consumen caen en gradientes de la identidad (nunca espacios
+     rotos, iconos de imagen faltante ni 404 en el arranque).
+     Las rutas url(...) se escriben RELATIVAS A ESTE ARCHIVO, es
+     decir con el prefijo `../assets/…`:
+
+     --hero-background      → assets/images/portada/portada.jpg
+     --mathematics-image    → assets/images/disciplinas/matematicas.png
+     --sciences-image       → assets/images/disciplinas/ciencias.png
+     --algebra-image        → assets/images/disciplinas/algebra.png
+     --arithmetic-image     → assets/images/disciplinas/aritmetica.png
+     --geometry-image       → assets/images/disciplinas/geometria.png
+     --trigonometry-image   → assets/images/disciplinas/trigonometria.png
+     --physics-image        → assets/images/disciplinas/fisica.png
+     --chemistry-image      → assets/images/disciplinas/quimica.png
+
+     Miniaturas de destacados → assets/images/contenidos/<archivo>
+     (campo opcional "imagen" de data/catalogo.json; lo resuelve
+     js/components.js, no se declara aquí).
+     ========================================================== */
+  --hero-background: none;
+  --mathematics-image: none;
+  --sciences-image: none;
+  --algebra-image: none;
+  --arithmetic-image: none;
+  --geometry-image: none;
+  --trigonometry-image: none;
+  --physics-image: none;
+  --chemistry-image: none;
+
+  /* Marco compartido por los espacios de imagen: resplandor
+     eléctrico suave sobre gradiente de superficies de identidad. */
+  --gradiente-marco:
+    radial-gradient(120% 90% at 15% 15%, var(--acento-suave), transparent 55%),
+    linear-gradient(135deg, var(--superficie-2) 0%, var(--fondo-elevado) 100%);
 }

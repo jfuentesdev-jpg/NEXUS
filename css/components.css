@@ -14,6 +14,7 @@
   border-radius: var(--radio-m);
   font-size: 1rem; /* evita zoom automático en iOS */
   color: var(--texto);
+  transition: border-color var(--duracion), box-shadow var(--duracion);
 }
 .buscador input::placeholder { color: var(--texto-2); }
 .buscador--hero {
@@ -34,10 +35,17 @@
   cursor: pointer;
   font-weight: 600;
   text-decoration: none;
-  transition: background var(--duracion), border-color var(--duracion), transform var(--duracion);
+  transition: background var(--duracion), border-color var(--duracion),
+    transform var(--duracion), box-shadow var(--duracion), opacity var(--duracion);
 }
-.boton--primario { background: var(--acento); color: var(--blanco-fijo); }
-.boton--primario:hover { background: var(--acento-fuerte); }
+.boton--primario {
+  background: var(--acento);
+  color: var(--blanco-fijo);
+}
+.boton--primario:hover {
+  background: var(--acento-fuerte);
+  box-shadow: 0 0 18px rgba(23, 107, 255, 0.25);
+}
 .boton--secundario {
   background: transparent;
   color: var(--texto);
@@ -57,6 +65,13 @@
 }
 .boton--texto:hover { text-decoration: underline; }
 .boton:active { transform: translateY(1px); }
+.boton:disabled,
+.boton--texto:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.boton:disabled { box-shadow: none; } /* esta regla queda tras .boton--primario:hover para ganar en empate */
+.boton:disabled:active { transform: none; }
 
 /* --- Tarjetas --- */
 .tarjeta {
@@ -67,11 +82,12 @@
   background: var(--superficie);
   border: 1px solid var(--borde);
   border-radius: var(--radio-l);
-  transition: border-color var(--duracion), background var(--duracion);
+  transition: border-color var(--duracion), background var(--duracion), box-shadow var(--duracion);
 }
 .tarjeta:hover {
-  border-color: var(--borde-fuerte);
+  border-color: var(--acento);
   background: var(--superficie-2);
+  box-shadow: var(--sombra);
 }
 
 .tarjeta-migas {
@@ -124,6 +140,45 @@
   font-size: 0.8rem;
 }
 
+/* --- Espacios de imagen (preparados para el propietario) ---
+   Sangran hasta los bordes de la tarjeta sobre el padding. Si no
+   hay imagen, pintan --gradiente-marco (identidad); nunca quedan
+   huecos vacíos ni iconos de imagen faltante. En móvil sus alturas
+   y sangrado se recalculan en layout.css junto al padding móvil. */
+.tarjeta-arte {
+  height: 96px;
+  margin: calc(-1 * var(--esp-5)) calc(-1 * var(--esp-5)) 0;
+  border-bottom: 1px solid var(--borde);
+  border-radius: var(--radio-l) var(--radio-l) 0 0;
+  background:
+    var(--imagen-slot, none) center / cover no-repeat,
+    var(--gradiente-marco);
+}
+.tarjeta-arte--mini { height: 64px; }
+
+.tarjeta-miniatura {
+  height: 76px;
+  margin: calc(-1 * var(--esp-5)) calc(-1 * var(--esp-5)) 0;
+  border-bottom: 1px solid var(--borde);
+  border-radius: var(--radio-l) var(--radio-l) 0 0;
+  background:
+    var(--imagen-tarjeta, none) center / cover no-repeat,
+    var(--gradiente-marco);
+}
+
+/* --- Animación de entrada (solo destacados del inicio) ---
+   Los resultados de Explorar no se animan: se re-renderizan con
+   cada tecla y parpadearían. base.css anula la animación y su
+   demora con `prefers-reduced-motion: reduce`. */
+@keyframes aparecer-entrada {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.tarjeta--anima {
+  animation: aparecer-entrada 0.45s ease-out both;
+  animation-delay: var(--demora-entrada, 0ms);
+}
+
 /* --- Etiquetas --- */
 .etiqueta {
   display: inline-flex;
@@ -160,8 +215,10 @@
   background: var(--fondo);
   text-decoration: none;
   font-size: 0.8rem;
+  transition: transform var(--duracion), border-color var(--duracion), color var(--duracion);
 }
 .ramas-mini a:hover {
+  transform: translateY(-1px);
   border-color: var(--acento);
   color: var(--acento-texto);
 }
@@ -223,8 +280,19 @@
   border: 1px solid var(--borde-fuerte);
   border-radius: var(--radio-s);
   color: var(--texto);
+  transition: border-color var(--duracion), box-shadow var(--duracion);
 }
+.campo input:disabled,
 .campo select:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Foco de formularios: anillo discreto de acento (visible por teclado). */
+.buscador input:focus-visible,
+.campo input:focus-visible,
+.campo select:focus-visible {
+  outline: none;
+  border-color: var(--acento);
+  box-shadow: 0 0 0 3px rgba(23, 107, 255, 0.35);
+}
 
 /* --- Resultados --- */
 .resultado-meta {
@@ -244,6 +312,7 @@
   max-width: 52ch;
   margin-inline: auto;
 }
+.sin-resultados .boton { margin-top: var(--esp-4); }
 
 /* --- Bloques de disciplina (página Disciplinas) --- */
 .disciplina-bloque {
@@ -256,4 +325,30 @@
   color: var(--texto-2);
   max-width: 62ch;
   margin-bottom: var(--esp-5);
+}
+
+/* ============================================================
+   Adaptación móvil de componentes (≤ 768 px)
+   Vive tras las reglas base a propósito: layout.css se carga antes
+   y, en empate de especificidad, el orden del documento decide.
+   Referencias: 320 / 360 / 390 / 430 px.
+   ============================================================ */
+@media (max-width: 768px) {
+  .tarjeta { padding: var(--esp-4); }
+  .inicial { width: 36px; height: 36px; font-size: 0.95rem; }
+
+  /* El sangrado de los espacios de imagen sigue al padding móvil y
+     sus alturas se reducen para no devorar la tarjeta. */
+  .tarjeta-arte,
+  .tarjeta-miniatura {
+    margin: calc(-1 * var(--esp-4)) calc(-1 * var(--esp-4)) 0;
+  }
+  .tarjeta-arte { height: 72px; }
+  .tarjeta-arte--mini,
+  .tarjeta-miniatura { height: 60px; }
+
+  /* Filtros apilados a ancho completo, cómodos al tacto. */
+  .filtros { align-items: stretch; }
+  .campo { width: 100%; }
+  .filtros .boton { width: 100%; }
 }

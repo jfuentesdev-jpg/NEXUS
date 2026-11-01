@@ -50,7 +50,11 @@ function renderDisciplinas(disciplinas, contenido) {
 function renderDestacados(items) {
   const contenedor = document.getElementById('rejilla-destacados');
   if (!contenedor) return;
-  contenedor.replaceChildren(...items.map(crearTarjetaContenido));
+
+  /* Las minúsculas demoras escalonan la entrada (máx. 240 ms). */
+  contenedor.replaceChildren(
+    ...items.map((item, indice) => crearTarjetaContenido(item, indice, true))
+  );
 }
 
 function mostrarError() {

@@ -4,6 +4,7 @@
    ============================================================ */
 
 import { getDisciplinas, getCatalogo } from '../data.js?v=0.1.0';
+import { crearArte } from '../components.js?v=0.1.0';
 
 export function iniciar() {
   return Promise.all([getDisciplinas(), getCatalogo()])
@@ -62,7 +63,7 @@ function crearBloque(disciplina, contenido) {
     meta.textContent = `${total} contenido${total === 1 ? '' : 's'}`;
 
     pie.append(enlace, meta);
-    tarjeta.append(tituloRama, descripcion, pie);
+    tarjeta.append(crearArte(rama.slug, 'tarjeta-arte--mini'), tituloRama, descripcion, pie);
     rejilla.append(tarjeta);
   });
 

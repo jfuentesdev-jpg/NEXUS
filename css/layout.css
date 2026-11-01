@@ -54,6 +54,7 @@
   text-decoration: none;
   color: var(--texto-2);
   font-weight: 500;
+  transition: color var(--duracion), background var(--duracion);
 }
 .navegacion a:hover,
 .navegacion a[aria-current="page"] {
@@ -61,10 +62,38 @@
   background: var(--superficie);
 }
 
-/* --- Hero (página de inicio) --- */
+/* --- Hero (página de inicio) ---
+   Espacio de imagen de portada preparado: si el propietario define
+   --hero-background (tokens.css), se pinta en ::before a pantalla
+   completa; si no, solo queda el resplandor suave. ::after añade el
+   velo de legibilidad que funde con el fondo de la página. */
 .hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding-block: clamp(3.5rem, 9vw, 6rem);
   text-align: center;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    var(--hero-background, none) center / cover no-repeat,
+    radial-gradient(60% 80% at 50% 0%, var(--acento-suave), transparent 70%);
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(9, 11, 18, 0.72),
+    rgba(9, 11, 18, 0.35) 55%,
+    var(--fondo) 92%
+  );
 }
 .hero h1 {
   font-size: clamp(2.2rem, 6vw, 3.5rem);
@@ -75,6 +104,13 @@
   margin-inline: auto;
   color: var(--texto-2);
   font-size: clamp(1rem, 2.2vw, 1.15rem);
+}
+
+/* Entrada del hero (solo si se permiten animaciones). */
+@media (prefers-reduced-motion: no-preference) {
+  .hero > .contenedor {
+    animation: aparecer-entrada 0.5s ease-out both;
+  }
 }
 
 /* --- Encabezado de páginas interiores --- */
@@ -101,6 +137,17 @@
   flex-wrap: wrap;
 }
 .seccion-cabecera h2 { margin-bottom: 0; }
+/* Filete de acento bajo los títulos de sección y disciplina. */
+.seccion-cabecera h2::after,
+.disciplina-bloque h2::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 2px;
+  margin-top: var(--esp-2);
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--acento), transparent);
+}
 .seccion-enlace {
   font-size: 0.9rem;
   font-weight: 600;
@@ -166,6 +213,7 @@
 .boton-menu:hover {
   color: var(--texto);
   border-color: var(--borde-fuerte);
+  background: var(--superficie);
 }
 
 /* --- Móvil / tableta (≤ 768 px): fila única + menú desplegable --- */
@@ -220,13 +268,9 @@
     animation: despliegue-menu 0.14s ease-out;
   }
 
-  /* Contenido y formularios: espaciado y filtros cómodos al tacto. */
-  .tarjeta { padding: var(--esp-4); }
-  .inicial { width: 36px; height: 36px; font-size: 0.95rem; }
-  .filtros { align-items: stretch; }
-  .campo { min-width: 0; width: 100%; }
-  .campo--busqueda { flex: 1 1 100%; }
-  .filtros .boton { width: 100%; }
+  /* Contenido y formularios: la adaptación móvil de componentes
+     (padding de tarjeta, espacios de imagen, filtros) vive al final
+     de components.css — se carga después y gana los empates. */
 }
 
 /* Transición del panel, solo si se permiten animaciones. */
