@@ -3,7 +3,7 @@
    Navegación adaptable:
    - Escritorio (≥ 769 px): menú horizontal original.
    - Móvil (≤ 768 px): fila única (logotipo + hamburguesa) y
-     menú desplegable con las secciones y el selector de tema.
+     menú desplegable con las secciones.
    Mejora progresiva: sin JS, la navegación horizontal fluida
    sigue disponible. Reutiliza la única navegación del documento.
    ============================================================ */
@@ -18,25 +18,6 @@ export function iniciarNavegacion() {
   /* Solo con JS se activa el modo móvil y se revela el botón. */
   document.body.classList.add('nav-con-js');
   boton.hidden = false;
-
-  /* El selector de tema se traslada al panel en móvil y vuelve a la
-     barra en escritorio, sin duplicar markup. */
-  const botonTema = document.getElementById('boton-tema');
-  const padreOriginal = botonTema?.parentElement ?? null;
-  const hermanoOriginal = botonTema?.nextElementSibling ?? null;
-
-  function reubicarSelectorTema() {
-    if (!botonTema) return;
-    if (MQ_MOVIL.matches) {
-      if (botonTema.parentElement !== navegacion) navegacion.append(botonTema);
-    } else if (padreOriginal && botonTema.parentElement !== padreOriginal) {
-      if (hermanoOriginal) {
-        padreOriginal.insertBefore(botonTema, hermanoOriginal);
-      } else {
-        padreOriginal.append(botonTema);
-      }
-    }
-  }
 
   const estaAbierta = () => boton.getAttribute('aria-expanded') === 'true';
 
@@ -88,11 +69,8 @@ export function iniciarNavegacion() {
     }
   });
 
-  function aplicarEstado() {
-    reubicarSelectorTema();
-    if (!MQ_MOVIL.matches) cerrar();
-  }
-
-  MQ_MOVIL.addEventListener('change', aplicarEstado);
-  aplicarEstado();
+  /* Al pasar a escritorio, restablecer el estado del menú. */
+  MQ_MOVIL.addEventListener('change', (evento) => {
+    if (!evento.matches) cerrar();
+  });
 }

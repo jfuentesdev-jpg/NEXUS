@@ -46,20 +46,3 @@
   /* Movimiento */
   --duracion: 0.18s;
 }
-
-[data-theme="light"] {
-  color-scheme: light;
-  --fondo: #FFFFFF;
-  --fondo-elevado: #F4F6FB;
-  --superficie: #F1F4F9;
-  --superficie-2: #E7ECF5;
-  --borde: #D9E0EC;
-  --borde-fuerte: #B9C4D8;
-  --texto: #121722;
-  --texto-2: #43506B;
-  --acento: #176BFF;
-  --acento-fuerte: #0F57D6;
-  --acento-texto: #0F57D6;
-  --acento-suave: rgba(23, 107, 255, 0.10);
-  --sombra: 0 10px 30px rgba(18, 23, 34, 0.08);
-}

@@ -61,29 +61,6 @@
   background: var(--superficie);
 }
 
-.boton-tema {
-  border: 1px solid var(--borde);
-  background: transparent;
-  border-radius: var(--radio-s);
-  width: 38px;
-  height: 38px;
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--texto-2);
-}
-.boton-tema:hover {
-  color: var(--texto);
-  border-color: var(--borde-fuerte);
-}
-.boton-tema svg { width: 18px; height: 18px; }
-[data-theme="oscuro"] .icono-sol { display: block; }
-[data-theme="oscuro"] .icono-luna { display: none; }
-[data-theme="claro"] .icono-sol { display: none; }
-[data-theme="claro"] .icono-luna { display: block; }
-
 /* --- Hero (página de inicio) --- */
 .hero {
   padding-block: clamp(3.5rem, 9vw, 6rem);
@@ -165,10 +142,10 @@
    Adaptación responsive (v0.1.0)
    Referencias: 320 / 360 / 390 / 430 / 768 / 1024 / 1366 / 1920 px.
    Escritorio (≥ 769 px) conserva el diseño horizontal original:
-   logotipo a la izquierda, navegación y selector de tema.
+   logotipo a la izquierda y navegación en fila.
    Móvil (≤ 768 px): fila única (logotipo + hamburguesa); navegación
-   y selector de tema en menú desplegable, solo con JavaScript
-   disponible (mejora progresiva; sin JS todo queda visible y fluido).
+   en menú desplegable, solo con JavaScript disponible (mejora
+   progresiva; sin JS todo queda visible y fluido).
    ============================================================ */
 
 /* --- Botón de menú (oculto en escritorio y sin JS) --- */
@@ -201,9 +178,8 @@
   /* La barra nunca se apila: una sola fila con o sin JavaScript. */
   .cabecera-inner { flex-wrap: nowrap; }
 
-  /* Sin JS (o módulos bloqueados): cabecera utilizable — enlaces en
-     franja deslizable y selector de tema anclado a la derecha. */
-  .boton-tema { margin-left: auto; }
+  /* Sin JS (o módulos bloqueados): cabecera utilizable — los enlaces
+     se conservan en una franja deslizable junto al logotipo. */
   .navegacion { min-width: 0; }
   .navegacion ul {
     flex-wrap: nowrap;
@@ -215,8 +191,7 @@
 
   .nav-con-js .boton-menu { display: inline-flex; margin-left: auto; }
 
-  /* La navegación sale de la barra y vive en el panel desplegable;
-     el selector de tema se reubica dentro por JS en este ancho. */
+  /* La navegación sale de la barra y vive en el panel desplegable. */
   .nav-con-js .navegacion { display: none; }
   .nav-con-js .navegacion--abierta {
     display: block;
@@ -236,30 +211,6 @@
     min-height: 44px;
   }
   .nav-con-js .navegacion a[aria-current="page"] {
-    color: var(--texto);
-    background: var(--superficie);
-  }
-
-  /* Selector de tema como fila final del menú. */
-  .nav-con-js .navegacion .boton-tema {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: var(--esp-2);
-    width: 100%;
-    height: auto;
-    margin: var(--esp-2) 0 0;
-    padding: var(--esp-3);
-    border: none;
-    border-top: 1px solid var(--borde);
-    background: transparent;
-    color: var(--texto-2);
-    min-height: 44px;
-    font-weight: 500;
-    border-radius: 0 0 var(--radio-s) var(--radio-s);
-  }
-  .nav-con-js .navegacion .boton-tema::after { content: 'Cambiar tema'; }
-  .nav-con-js .navegacion .boton-tema:hover {
     color: var(--texto);
     background: var(--superficie);
   }

@@ -25,7 +25,7 @@ Abrir `http://localhost:8123` en Chrome, Edge, Firefox o Safari.
 - Página de inicio: buscador central, disciplinas, contenidos destacados.
 - Página de disciplinas: jerarquía Disciplina → Rama con conteos.
 - Página de biblioteca (Explorar): búsqueda local + filtros (disciplina, rama, dificultad) sincronizados con la URL.
-- Sistema visual Dark Technology (§11): oscuro/claro con preferencia persistente, header, cards, badges.
+- Sistema visual Dark Technology (§11) en tema oscuro permanente: header, cards, badges.
 - Diseño responsive mobile-first y semántica accesible (enfoque WCAG 2.2 AA).
 
 Fuera de alcance por ahora (Fase 3+): fichas de contenido, Markdown, rutas, relaciones visuales.
@@ -36,7 +36,7 @@ Fuera de alcance por ahora (Fase 3+): fichas de contenido, Markdown, rutas, rela
 index.html            Página de inicio
 pages/                Páginas interiores
 css/                  tokens (sistema de diseño) · base · layout · componentes
-js/                   data (catálogo) · theme · search · components · main
+js/                   data (catálogo) · nav · search · components · main
 js/pages/             módulos por página (inicio, disciplinas, explorar)
 data/                 disciplinas.json · catalogo.json
 assets/               favicon (marca simplificada)
