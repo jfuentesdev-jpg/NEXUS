@@ -24,6 +24,7 @@ Estado: construcción en curso, sin publicación pública.
 
 ### Changed
 - Header responsive: menú horizontal en escritorio (≥ 769 px); en pantallas de hasta 768 px, fila única con logotipo y botón hamburguesa, con menú desplegable que reúne las secciones y el selector de tema. Accesible por teclado (Escape con retorno de foco; foco al primer enlace al abrir por teclado), con atributos ARIA (`aria-expanded`, `aria-controls`, `aria-label` dinámico), despliegue discreto respetando `prefers-reduced-motion`, y cierre automático al seleccionar una opción o hacer clic fuera. Sin JavaScript, la navegación horizontal fluida sigue disponible.
+- Referencias de CSS y JavaScript versionadas (`?v=0.1.0`) para invalidar la caché del navegador al actualizar y evitar estados que mezclan HTML nuevo con recursos antiguos.
 - Ajustes de espaciado y anchos de filtros para ventanas de referencia de 360 a 1920 px, conservando la identidad visual de escritorio.
 
 ## Convenciones para próximos lanzamientos

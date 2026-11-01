@@ -3,7 +3,7 @@
    Página de disciplinas: jerarquía Disciplina → Rama con conteos.
    ============================================================ */
 
-import { getDisciplinas, getCatalogo } from '../data.js';
+import { getDisciplinas, getCatalogo } from '../data.js?v=0.1.0';
 
 export function iniciar() {
   return Promise.all([getDisciplinas(), getCatalogo()])

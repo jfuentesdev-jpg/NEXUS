@@ -16,6 +16,10 @@ npx http-server -p 8123 .       # opción B (Node)
 
 Abrir `http://localhost:8123` en Chrome, Edge, Firefox o Safari.
 
+> El catálogo no se puede abrir doble-clicando el archivo (`file://`): los módulos ES se bloquean.
+> Tras actualizar código, fuerza recarga (Ctrl+F5); las referencias estáticas llevan `?v=` que se
+> incrementa con cada versión para invalidar la caché del navegador.
+
 ## Alcance de esta versión
 
 - Página de inicio: buscador central, disciplinas, contenidos destacados.

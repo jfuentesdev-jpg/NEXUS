@@ -198,6 +198,21 @@
   .marca { font-size: 1rem; }
   .logo-marca { width: 26px; height: 26px; }
 
+  /* La barra nunca se apila: una sola fila con o sin JavaScript. */
+  .cabecera-inner { flex-wrap: nowrap; }
+
+  /* Sin JS (o módulos bloqueados): cabecera utilizable — enlaces en
+     franja deslizable y selector de tema anclado a la derecha. */
+  .boton-tema { margin-left: auto; }
+  .navegacion { min-width: 0; }
+  .navegacion ul {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .navegacion ul::-webkit-scrollbar { display: none; }
+  .navegacion a { white-space: nowrap; }
+
   .nav-con-js .boton-menu { display: inline-flex; margin-left: auto; }
 
   /* La navegación sale de la barra y vive en el panel desplegable;
