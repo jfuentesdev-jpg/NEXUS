@@ -160,3 +160,78 @@
 }
 .pie .marca { font-size: 0.95rem; }
 .pie .logo-marca { width: 22px; height: 22px; }
+
+/* ============================================================
+   Adaptación responsive (v0.1.0)
+   Referencias de ancho: 360 · 390 · 768 · 1024 · 1366 · 1920 px.
+   Escritorio no cambia: el menú hamburguesa solo existe en móvil
+   (≤ 620 px) y únicamente con JavaScript disponible (mejora
+   progresiva; sin JS, la navegación sigue visible y fluida).
+   ============================================================ */
+
+/* --- Botón de menú (oculto en escritorio y sin JS) --- */
+.boton-menu {
+  display: none;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-s);
+  background: transparent;
+  color: var(--texto-2);
+  cursor: pointer;
+}
+.boton-menu svg { width: 20px; height: 20px; }
+.boton-menu:hover {
+  color: var(--texto);
+  border-color: var(--borde-fuerte);
+}
+
+/* --- Tableta (621–1024 px): misma estructura, menos aire --- */
+@media (min-width: 621px) and (max-width: 1024px) {
+  .cabecera-inner { gap: var(--esp-3); }
+  .navegacion a { padding: var(--esp-2) var(--esp-2); }
+  .hero { padding-block: clamp(3rem, 7vw, 4.5rem); }
+}
+
+/* --- Móvil (≤ 620 px) --- */
+@media (max-width: 620px) {
+  .cabecera-inner { min-height: 56px; gap: var(--esp-2); }
+  .marca { font-size: 1rem; }
+  .logo-marca { width: 26px; height: 26px; }
+  .boton-tema { margin-left: auto; }
+
+  /* Navegación hamburguesa: el panel ancla al header sticky */
+  .nav-con-js .boton-menu { display: inline-flex; }
+  .nav-con-js .navegacion { display: none; }
+  .nav-con-js .navegacion--abierta {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--fondo);
+    border-bottom: 1px solid var(--borde);
+    box-shadow: var(--sombra);
+    padding: var(--esp-2) clamp(1rem, 4vw, 1.5rem) var(--esp-4);
+  }
+  .nav-con-js .navegacion ul { flex-direction: column; gap: var(--esp-1); }
+  .nav-con-js .navegacion a {
+    padding: var(--esp-3);
+    min-height: 44px;
+  }
+  .nav-con-js .navegacion a[aria-current="page"] {
+    color: var(--texto);
+    background: var(--superficie);
+  }
+
+  /* Contenido y formularios */
+  .tarjeta { padding: var(--esp-4); }
+  .inicial { width: 36px; height: 36px; font-size: 0.95rem; }
+  .filtros { align-items: stretch; }
+  .campo { min-width: 0; width: 100%; }
+  .campo--busqueda { flex: 1 1 100%; }
+  .filtros .boton { width: 100%; }
+}

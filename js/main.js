@@ -5,8 +5,10 @@
    ============================================================ */
 
 import { iniciarTema } from './theme.js';
+import { iniciarNavegacion } from './nav.js';
 
 iniciarTema();
+iniciarNavegacion();
 
 const paginas = {
   inicio: () => import('./pages/inicio.js'),

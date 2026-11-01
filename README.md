@@ -1,7 +1,9 @@
-# NEXUS — Ecosistema de Conocimiento (v0.1)
+# NEXUS — Ecosistema de Conocimiento (v0.1.0)
 
 **Conecta el conocimiento.** Primera base funcional conforme al
 [Documento Maestro v1.0](docs/Nexus-Documento-Maestro-v1.0.md) (Fases 1–2: fundación e interfaz principal).
+
+Historial de versiones: [CHANGELOG.md](CHANGELOG.md).
 
 ## Ejecutar
 

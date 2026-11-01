@@ -42,7 +42,7 @@
         </svg>
         <span>NEXUS</span>
       </a>
-      <nav class="navegacion" aria-label="Navegación principal">
+      <nav class="navegacion" id="menu-principal" aria-label="Navegación principal">
         <ul>
           <li><a href="index.html" aria-current="page">Inicio</a></li>
           <li><a href="pages/explorar.html">Explorar</a></li>
@@ -56,6 +56,11 @@
         </svg>
         <svg class="icono-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true">
           <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/>
+        </svg>
+      </button>
+      <button class="boton-menu" id="boton-menu" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
         </svg>
       </button>
     </div>
@@ -112,7 +117,7 @@
   <footer class="pie">
     <div class="pie-inner contenedor">
       <span>NEXUS · Conecta el conocimiento</span>
-      <span>Versión 0.1 — construcción en curso · 2026</span>
+      <span>Versión 0.1.0 — construcción en curso · 2026</span>
     </div>
   </footer>
 
