@@ -89,36 +89,42 @@ docs/                 Documento Maestro
 
 ## Incorporar imágenes (propietario)
 
-Las imágenes se integran después: los espacios ya existen y, hasta colocar los
-archivos, pintan un gradiente elegante de la identidad (nunca quedan huecos
-rotos ni iconos de imagen faltante). Pasos:
+La integración se hace sobre espacios preparados: si falta el archivo,
+el espacio pinta un gradiente elegante de la identidad (nunca quedan huecos
+rotos ni iconos de imagen faltante). Estado actual: **portada y las 8
+imágenes de disciplinas/ramas están integradas**; las **miniaturas de
+contenidos están pendientes**. Pasos para las que falten:
 
 1. Copiar el archivo en su carpeta bajo `assets/images/`:
    `portada/` (fondo del hero) · `disciplinas/` (matemáticas, ciencias y sus ramas) ·
    `contenidos/` (miniaturas de destacados).
 2. Asignar la variable CSS correspondiente en `css/tokens.css` (empiezan en `none`):
 
-   | Variable | Archivo esperado |
+   | Variable | Archivo integrado (o previsto) |
    |---|---|
-   | `--hero-background` | `../assets/images/portada/portada.jpg` |
-   | `--mathematics-image` | `../assets/images/disciplinas/matematicas.png` |
-   | `--sciences-image` | `../assets/images/disciplinas/ciencias.png` |
-   | `--algebra-image` | `../assets/images/disciplinas/algebra.png` |
-   | `--arithmetic-image` | `../assets/images/disciplinas/aritmetica.png` |
-   | `--geometry-image` | `../assets/images/disciplinas/geometria.png` |
-   | `--trigonometry-image` | `../assets/images/disciplinas/trigonometria.png` |
-   | `--physics-image` | `../assets/images/disciplinas/fisica.png` |
-   | `--chemistry-image` | `../assets/images/disciplinas/quimica.png` |
+   | `--hero-background` | `../assets/images/portada/portada.jpg` ✓ |
+   | `--mathematics-image` | `../assets/images/disciplinas/matematicas.jpg` ✓ |
+   | `--sciences-image` | `../assets/images/disciplinas/ciencias.jpg` ✓ |
+   | `--algebra-image` | `../assets/images/disciplinas/algebra.jpg` ✓ |
+   | `--arithmetic-image` | `../assets/images/disciplinas/aritmetica.jpg` ✓ |
+   | `--geometry-image` | `../assets/images/disciplinas/geometria.jpg` ✓ |
+   | `--trigonometry-image` | `../assets/images/disciplinas/trigonometria.jpg` ✓ |
+   | `--physics-image` | `../assets/images/disciplinas/fisica.jpg` ✓ |
+   | `--chemistry-image` | `../assets/images/disciplinas/quimica.jpg` ✓ |
 
    Dentro de `tokens.css` las rutas `url(...)` van con prefijo `../` (relativas al
-   archivo CSS). No hace falta tocar HTML ni JavaScript: las tarjetas ya
+   archivo CSS) y llevan `?v=` de caché. No hace falta tocar HTML ni JavaScript:
+   las tarjetas ya
    enlazan a estas variables.
 
-3. Miniaturas de destacados (opcional): añadir al ítem de `data/catalogo.json`
+3. Miniaturas de destacados (pendientes): añadir al ítem de `data/catalogo.json`
    el campo `"imagen": "nombre-del-archivo.jpg"` y colocar ese archivo en
    `assets/images/contenidos/`; la tarjeta lo resuelve sola
    (`js/components.js`). Sin ese campo, los destacados muestran solo el marco
-   gradiente.
+   gradiente. Correspondencias verificadas con el catálogo actual:
+   `ecuaciones.jpg` → `MAT-ALG-0001` (Ecuaciones lineales con una variable),
+   `funciones.jpg` → `MAT-ALG-0003` (Ecuación cuadrática),
+   `geometria.jpg` → `MAT-GEO-0005` (Teorema de Pitágoras).
 
 ## Añadir contenidos
 

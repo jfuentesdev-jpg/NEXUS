@@ -47,37 +47,23 @@
   --duracion: 0.18s;
 
   /* ==========================================================
-     ESPACIOS PARA IMÁGENES (propietario)
-     Todas valen `none` hasta que el propietario coloque el archivo
-     y asigne la variable. Mientras falten, los componentes que las
-     consumen caen en gradientes de la identidad (nunca espacios
-     rotos, iconos de imagen faltante ni 404 en el arranque).
-     Las rutas url(...) se escriben RELATIVAS A ESTE ARCHIVO, es
-     decir con el prefijo `../assets/…`:
-
-     --hero-background      → assets/images/portada/portada.jpg
-     --mathematics-image    → assets/images/disciplinas/matematicas.png
-     --sciences-image       → assets/images/disciplinas/ciencias.png
-     --algebra-image        → assets/images/disciplinas/algebra.png
-     --arithmetic-image     → assets/images/disciplinas/aritmetica.png
-     --geometry-image       → assets/images/disciplinas/geometria.png
-     --trigonometry-image   → assets/images/disciplinas/trigonometria.png
-     --physics-image        → assets/images/disciplinas/fisica.png
-     --chemistry-image      → assets/images/disciplinas/quimica.png
-
-     Miniaturas de destacados → assets/images/contenidos/<archivo>
-     (campo opcional "imagen" de data/catalogo.json; lo resuelve
-     js/components.js, no se declara aquí).
+     ESPACIOS PARA IMÁGENES
+     Estado (2026-11-01): portada y las 8 disciplinas/ramas están
+     ACTIVAS con archivos .jpg incorporados por el propietario.
+     Lo pendiente (miniaturas de contenidos) sigue en `none` y sus
+     componentes pintan el gradiente de identidad (sin 404).
+     Las rutas url(...) van RELATIVAS A ESTE ARCHIVO (`../assets/…`)
+     y llevan `?v=` (misma convención de caché que el resto).
      ========================================================== */
-  --hero-background: none;
-  --mathematics-image: none;
-  --sciences-image: none;
-  --algebra-image: none;
-  --arithmetic-image: none;
-  --geometry-image: none;
-  --trigonometry-image: none;
-  --physics-image: none;
-  --chemistry-image: none;
+  --hero-background: url("../assets/images/portada/portada.jpg?v=0.1.0");
+  --mathematics-image: url("../assets/images/disciplinas/matematicas.jpg?v=0.1.0");
+  --sciences-image: url("../assets/images/disciplinas/ciencias.jpg?v=0.1.0");
+  --algebra-image: url("../assets/images/disciplinas/algebra.jpg?v=0.1.0");
+  --arithmetic-image: url("../assets/images/disciplinas/aritmetica.jpg?v=0.1.0");
+  --geometry-image: url("../assets/images/disciplinas/geometria.jpg?v=0.1.0");
+  --trigonometry-image: url("../assets/images/disciplinas/trigonometria.jpg?v=0.1.0");
+  --physics-image: url("../assets/images/disciplinas/fisica.jpg?v=0.1.0");
+  --chemistry-image: url("../assets/images/disciplinas/quimica.jpg?v=0.1.0");
 
   /* Marco compartido por los espacios de imagen: resplandor
      eléctrico suave sobre gradiente de superficies de identidad. */

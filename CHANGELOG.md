@@ -31,6 +31,7 @@ sin etiqueta de versión ni GitHub Release.
 - Animaciones de entrada discretas: hero y contenidos destacados escalonados (hasta 240 ms), desactivadas con `prefers-reduced-motion` (incluidos sus retrasos).
 - Estado vacío de Explorar con botón «Restablecer filtros» (misma función que «Limpiar»).
 - Espacios de imagen preparados para el propietario (`--hero-background`, variables por disciplina y por rama, miniaturas opcionales vía campo `imagen` del catálogo): degradan en gradientes de identidad, sin 404 al arranque ni iconos de imagen faltante. Estructura `assets/images/{portada,disciplinas,contenidos}`.
+- Imágenes propias del propietario integradas en esos espacios: portada del hero más las 8 ilustraciones de disciplinas y ramas, referenciadas con rutas relativas y `?v`. Las miniaturas de contenidos siguen pendientes y conservan el fallback gradiente (sin 404).
 - Corrección móvil: la adaptación de componentes a ≤ 768 px (padding de tarjetas, badge, filtros apilados a ancho completo) vive ahora en `components.css` tras sus reglas base; antes perdía los empates de cascada contra el archivo base y no se aplicaba realmente.
 
 ### Removed
