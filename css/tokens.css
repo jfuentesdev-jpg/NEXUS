@@ -55,15 +55,15 @@
      Las rutas url(...) van RELATIVAS A ESTE ARCHIVO (`../assets/…`)
      y llevan `?v=` (misma convención de caché que el resto).
      ========================================================== */
-  --hero-background: url("../assets/images/portada/portada.jpg?v=0.1.0");
-  --mathematics-image: url("../assets/images/disciplinas/matematicas.jpg?v=0.1.0");
-  --sciences-image: url("../assets/images/disciplinas/ciencias.jpg?v=0.1.0");
-  --algebra-image: url("../assets/images/disciplinas/algebra.jpg?v=0.1.0");
-  --arithmetic-image: url("../assets/images/disciplinas/aritmetica.jpg?v=0.1.0");
-  --geometry-image: url("../assets/images/disciplinas/geometria.jpg?v=0.1.0");
-  --trigonometry-image: url("../assets/images/disciplinas/trigonometria.jpg?v=0.1.0");
-  --physics-image: url("../assets/images/disciplinas/fisica.jpg?v=0.1.0");
-  --chemistry-image: url("../assets/images/disciplinas/quimica.jpg?v=0.1.0");
+  --hero-background: url("../assets/images/portada/portada.jpg?v=0.1.2");
+  --mathematics-image: url("../assets/images/disciplinas/matematicas.jpg?v=0.1.2");
+  --sciences-image: url("../assets/images/disciplinas/ciencias.jpg?v=0.1.2");
+  --algebra-image: url("../assets/images/disciplinas/algebra.jpg?v=0.1.2");
+  --arithmetic-image: url("../assets/images/disciplinas/aritmetica.jpg?v=0.1.2");
+  --geometry-image: url("../assets/images/disciplinas/geometria.jpg?v=0.1.2");
+  --trigonometry-image: url("../assets/images/disciplinas/trigonometria.jpg?v=0.1.2");
+  --physics-image: url("../assets/images/disciplinas/fisica.jpg?v=0.1.2");
+  --chemistry-image: url("../assets/images/disciplinas/quimica.jpg?v=0.1.2");
 
   /* Marco compartido por los espacios de imagen: resplandor
      eléctrico suave sobre gradiente de superficies de identidad. */

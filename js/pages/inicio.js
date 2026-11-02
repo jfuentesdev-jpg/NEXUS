@@ -3,8 +3,8 @@
    Renderiza Disciplinas y Contenidos destacados de la página de inicio.
    ============================================================ */
 
-import { getDisciplinas, getCatalogo } from '../data.js?v=0.1.0';
-import { crearTarjetaContenido, crearTarjetaDisciplina } from '../components.js?v=0.1.0';
+import { getDisciplinas, getCatalogo } from '../data.js?v=0.1.2';
+import { crearTarjetaContenido, crearTarjetaDisciplina } from '../components.js?v=0.1.2';
 
 export function iniciar() {
   conectarBuscador();

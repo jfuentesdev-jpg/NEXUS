@@ -3,8 +3,8 @@
    Página de disciplinas: jerarquía Disciplina → Rama con conteos.
    ============================================================ */
 
-import { getDisciplinas, getCatalogo } from '../data.js?v=0.1.0';
-import { crearArte } from '../components.js?v=0.1.0';
+import { getDisciplinas, getCatalogo } from '../data.js?v=0.1.2';
+import { crearArte } from '../components.js?v=0.1.2';
 
 export function iniciar() {
   return Promise.all([getDisciplinas(), getCatalogo()])

@@ -7,12 +7,12 @@ proyecto sigue en desarrollo activo).
 
 ## [Sin publicar]
 
-## [0.1.0] — 2026-11-01
+## [0.1.2] — 2026-11-01
 
 Primera versión funcional de la interfaz (Fases 1–2 del Documento Maestro v1.0).
-Estado: construcción en curso. Código publicado en el repositorio público
-[jfuentesdev-jpg/NEXUS](https://github.com/jfuentesdev-jpg/NEXUS) (2026-11-01),
-sin etiqueta de versión ni GitHub Release.
+Estado: primera versión publicada en el repositorio público
+[jfuentesdev-jpg/NEXUS](https://github.com/jfuentesdev-jpg/NEXUS) y registrada
+con la etiqueta `v0.1.2` (2026-11-01).
 
 ### Added
 - Página de inicio con buscador central, sección de disciplinas y contenidos destacados.
@@ -33,6 +33,7 @@ sin etiqueta de versión ni GitHub Release.
 - Espacios de imagen preparados para el propietario (`--hero-background`, variables por disciplina y por rama, miniaturas opcionales vía campo `imagen` del catálogo): degradan en gradientes de identidad, sin 404 al arranque ni iconos de imagen faltante. Estructura `assets/images/{portada,disciplinas,contenidos}`.
 - Imágenes propias del propietario integradas en esos espacios: portada del hero más las 8 ilustraciones de disciplinas y ramas, referenciadas con rutas relativas y `?v`. Las miniaturas de contenidos siguen pendientes y conservan el fallback gradiente (sin 404).
 - Corrección móvil: la adaptación de componentes a ≤ 768 px (padding de tarjetas, badge, filtros apilados a ancho completo) vive ahora en `components.css` tras sus reglas base; antes perdía los empates de cascada contra el archivo base y no se aplicaba realmente.
+- Al registrar esta versión como `v0.1.2`, todas las referencias `?v=` de HTML, JavaScript y CSS y el pie de página quedan sincronizados con la versión publicada («Versión 0.1.2 — construcción en curso · 2026»).
 
 ### Removed
 - Control de cambio claro/oscuro y su módulo de persistencia (`js/theme.js`): existieron solo durante el desarrollo de esta versión y se retiraron antes del lanzamiento. NEXUS queda en tema oscuro permanente, definido por la identidad del Documento Maestro (§11).

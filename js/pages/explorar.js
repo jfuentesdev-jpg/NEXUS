@@ -4,9 +4,9 @@
    y sincronización del estado con la URL.
    ============================================================ */
 
-import { getDisciplinas, getCatalogo } from '../data.js?v=0.1.0';
-import { crearTarjetaContenido } from '../components.js?v=0.1.0';
-import { buscar, prepararBusquedas } from '../search.js?v=0.1.0';
+import { getDisciplinas, getCatalogo } from '../data.js?v=0.1.2';
+import { crearTarjetaContenido } from '../components.js?v=0.1.2';
+import { buscar, prepararBusquedas } from '../search.js?v=0.1.2';
 
 const DIFICULTADES = ['básica', 'intermedia'];
 
